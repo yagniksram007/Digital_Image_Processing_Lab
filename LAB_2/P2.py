@@ -1,5 +1,6 @@
-# pip install opencv-python
+# Question: Read an image and extract and display low level features such as edges, textures using filtering techniques
 
+#pip install opencv-python
 import cv2
 
 # Function to apply Gaussian Filter
@@ -23,7 +24,7 @@ def main():
     image = cv2.imread(image_path)
     
     if image is None:
-        print("ERROR!!!!!: Could not read the image.")
+        print("ERROR! Could not read the image.")
         return
 
     # Resize the image to a smaller size (e.g., 40% of the original)

@@ -1,3 +1,6 @@
+# Question: Write a program to read a digial image. Split and display image into 4 quadrants, up, down, right and left.
+
+# pip install opencv-python 
 import cv2
 
 image_path = 'LAB_1/Miguel.jpeg'
