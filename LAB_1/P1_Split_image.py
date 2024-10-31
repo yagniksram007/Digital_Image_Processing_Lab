@@ -25,3 +25,7 @@ cv2.imshow('Bottom Left', bottom_left)
 cv2.imshow('Bottom Right', bottom_right)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+# Output:
+# (993, 993, 3)
+# With four quad images
