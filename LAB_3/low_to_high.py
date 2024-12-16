@@ -1,40 +1,49 @@
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Function to display original and processed images
-def display_images(original, enhanced, hd_image):
-    plt.figure(figsize=(15, 5))
-    
-    plt.subplot(1, 3, 1)
-    plt.title("Original Low-Contrast Image")
-    plt.imshow(original, cmap='gray')
-    
-    plt.subplot(1, 3, 2)
-    plt.title("Enhanced Contrast Image")
-    plt.imshow(enhanced, cmap='gray')
-    
-    plt.subplot(1, 3, 3)
-    plt.title("HD Image (Upscaled)")
-    plt.imshow(hd_image, cmap='gray')
-    
-    plt.show()
+# Read the digital image
+image_path = "LAB_3\low_contrast_image.png"  # Replace with your image path
+image = cv2.imread(image_path)
 
-# Step 1: Load the low-contrast 2D image
-image = cv2.imread('LAB 3/low_contrast_image.png', cv2.IMREAD_GRAYSCALE)
+# Check if the image is loaded successfully
+if image is None:
+    print("Error: Unable to load image. Check the path.")
+    exit()
 
-# Step 2: Contrast Enhancement using CLAHE
-clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-enhanced_image = clahe.apply(image)
+# Convert image from BGR to RGB (for displaying with Matplotlib)
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-# Step 3: Noise Reduction (Optional)
-denoised_image = cv2.fastNlMeansDenoising(enhanced_image, None, 30, 7, 21)
+# Convert image to grayscale for processing
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# Step 4: Upscale the image to HD resolution (using interpolation)
-scale_percent = 200  # Upscale by 200%
-width = int(denoised_image.shape[1] * scale_percent / 100)
-height = int(denoised_image.shape[0] * scale_percent / 100)
-hd_image = cv2.resize(denoised_image, (width, height), interpolation=cv2.INTER_CUBIC)
+# Enhance the contrast using Histogram Equalization
+enhanced_image = cv2.equalizeHist(gray_image)
 
-# Display the images: Original, Enhanced, and HD Image
-display_images(image, enhanced_image, hd_image)
+# Segment the image using Otsu's Thresholding
+_, segmented_image = cv2.threshold(enhanced_image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+# Display the original, enhanced, and segmented images
+plt.figure(figsize=(12, 8))
+
+# Original grayscale image
+plt.subplot(1, 3, 1)
+plt.imshow(gray_image, cmap="gray")
+plt.title("Original Grayscale Image")
+plt.axis("off")
+
+# Enhanced image
+plt.subplot(1, 3, 2)
+plt.imshow(enhanced_image, cmap="gray")
+plt.title("Enhanced Image (Histogram Equalization)")
+plt.axis("off")
+
+# Segmented image
+plt.subplot(1, 3, 3)
+plt.imshow(segmented_image, cmap="gray")
+plt.title("Segmented Image (Otsu's Thresholding)")
+plt.axis("off")
+
+# Show the plots
+plt.tight_layout()
+plt.show()

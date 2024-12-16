@@ -3,7 +3,7 @@
 # pip install opencv-python 
 import cv2
 
-image_path = 'LAB_1/Miguel.jpeg'
+image_path = 'LAB_1/Mountain.jpg'
 image = cv2.imread(image_path)
 if image is None:
     print("Error: Unable to load image.")

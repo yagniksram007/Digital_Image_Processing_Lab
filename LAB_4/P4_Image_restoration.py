@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the image
-image = cv2.imread('noisy_dog.jpg', 0)
+image = cv2.imread('LAB_4/noisy_dog.jpg', 0)
 
 # Spatial Domain Example: Gaussian Filter
 spatial_filtered = cv2.GaussianBlur(image, (5, 5), 0)

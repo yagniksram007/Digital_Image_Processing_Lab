@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Read the image
-image = cv2.imread('anime.jpg', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread('LAB_5/anime.jpg', cv2.IMREAD_GRAYSCALE)
 
 # Define the kernel for erosion and dilation
 kernel = np.ones((5, 5), np.uint8)
